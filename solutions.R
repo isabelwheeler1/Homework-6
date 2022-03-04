@@ -19,13 +19,6 @@ happy$AGE <- as.numeric(happy$AGE)
 is.numeric(happy$AGE)
 
 #Bring all levels of factors into a sensible order
-levels(as.factor(happy$HAPPY)) #correct order
-levels(as.factor(happy$SEX)) #order doesn't really matter here
-levels(as.factor(happy$FINRELA)) #change order
-levels(as.factor(happy$HEALTH)) #change order
-levels(as.factor(happy$PARTYID)) #change order
-levels(as.factor(happy$POLVIEWS)) #change order
-
 happy1 = 
   happy %>% mutate(AGE = replace(AGE, AGE == "89 OR OLDER", 89)) %>%
   mutate(AGE = as.numeric(AGE), 
@@ -86,8 +79,18 @@ happy1 <- happy %>% mutate(
              -WTSSALL, -PARTYID, -POLVIEWS)
 
 
-
-
 #Investigate the relationship between happiness and two other variables in the data. 
 #Find a visualization that captures the relationship and write a paragraph to describe it.
+
+# compare marital status to happiness
+ggplot(aes(x = happy), data = happy1) +
+  facet_wrap(~marital) +
+  geom_bar()
+#I know that the x-axis labels are hard to read, but they are ordered from least to 
+#most happy. (This goes for the next bar chart too.)
+
+#compare health to happiness
+ggplot(aes(x = happy), data = happy1) +
+  facet_wrap(~health) +
+  geom_bar()
 
