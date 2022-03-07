@@ -4,6 +4,7 @@ str(happy)
 
 #recode missing values to all be NA
 #HAPPY <- replace(HAPPY, HAPPY %in% c("IAP", "DK", "NA"), NA)
+#can't use %in% here
 happy <- replace(happy, happy == "IAP", NA)
 happy <- replace(happy, happy == "DK", NA)
 happy <- replace(happy, happy == "NA", NA)
@@ -62,7 +63,7 @@ happy1 =
                                                 "EXTRMLY CONSERVATIVE")))
 
 
-#make it lowercase
+#make variables lowercase
 happy1 <- happy %>% mutate(
   happy = factor(tolower(HAPPY)),
   year = factor(tolower(YEAR)),
@@ -82,15 +83,27 @@ happy1 <- happy %>% mutate(
 #Investigate the relationship between happiness and two other variables in the data. 
 #Find a visualization that captures the relationship and write a paragraph to describe it.
 
-# compare marital status to happiness
-ggplot(aes(x = happy), data = happy1) +
+# compare marital status to happiness separated by sex
+ggplot(aes(x = happy, fill = sex), data = happy1) +
   facet_wrap(~marital) +
-  geom_bar()
-#I know that the x-axis labels are hard to read, but they are ordered from least to 
-#most happy. (This goes for the next bar chart too.)
+  geom_bar(position = position_dodge())  +
+  coord_flip() +
+  labs(title = "Happiness on marital status and gender")
+#The numbers for the count variable are a bit hard to read, but they aren't super
+#important to this analysis. When looking at this bar plot, there is a much larger 
+#number of married people, both male and female, that are in the very happy or pretty
+#happy group. The largest group of people in the divorced group are in the pretty 
+#happy group for males and females. For all of the groups the largest number of people
+#is in the pretty happy group. It is interesting to look at the widowed group to see
+#there are many more woman in this group than men and this can probably be attributed
+#to the fact that woman live longer than men.
 
-#compare health to happiness
-ggplot(aes(x = happy), data = happy1) +
-  facet_wrap(~health) +
-  geom_bar()
 
+#just extra practice
+ggplot(aes(x = happy, fill = finrela), data = happy1) +
+  facet_wrap(~marital) +
+  geom_bar() + 
+  coord_flip() +
+  labs(title = "Happiness on marital status and financial status")
+
+ 
