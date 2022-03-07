@@ -81,7 +81,8 @@ happy1 <- happy %>% mutate(
 
 
 #Investigate the relationship between happiness and two other variables in the data. 
-#Find a visualization that captures the relationship and write a paragraph to describe it.
+#Find a visualization that captures the relationship and write a paragraph to describe
+#Done by Isabel Wheeler
 
 # compare marital status to happiness separated by sex
 ggplot(aes(x = happy, fill = sex), data = happy1) +
@@ -97,6 +98,8 @@ ggplot(aes(x = happy, fill = sex), data = happy1) +
 #is in the pretty happy group. It is interesting to look at the widowed group to see
 #there are many more woman in this group than men and this can probably be attributed
 #to the fact that woman live longer than men.
+
+
 
 
 #just extra practice
